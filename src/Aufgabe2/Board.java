@@ -26,7 +26,7 @@ public class Board {
      */
     public Board() {
         ArrayList<Integer> puzzle = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i <= N; i++) {
             puzzle.add(i);
         }
         Random zufall = new Random();
