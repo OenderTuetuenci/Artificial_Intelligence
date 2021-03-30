@@ -6,13 +6,29 @@ import java.util.LinkedList;
 
 /**
  * Klasse IDFS für iterative deepening depth-first search
- * @author Ihr Name
+ * @author Önder Tütünci,Matthias Reichenbach
  */
 public class IDFS {
 
 	private static Deque<Board> dfs(Board curBoard, Deque<Board> path, int limit) {
-		// ...
-		return null;
+		if (curBoard.isSolved()){
+			path.removeFirst();
+			return path;
+		}
+		else if (limit == 0)
+			return null;
+		else {
+			for (Board board: curBoard.possibleActions()) {
+				if (path.contains(board))
+					continue;
+				path.add(board);
+				Deque<Board> result = dfs(board,path,limit-1);
+				if (result != null)
+					return result;
+				path.removeLast();
+			}
+			return null;
+		}
 	}
 	
 	private static Deque<Board> idfs(Board curBoard, Deque<Board> path) {
@@ -27,7 +43,6 @@ public class IDFS {
 	public static Deque<Board> idfs(Board curBoard) {
 		Deque<Board> path = new LinkedList<>();
 		path.addLast(curBoard);
-		Deque<Board> res =  idfs(curBoard, path); 
-		return res;
+		return idfs(curBoard, path);
 	}
 }
