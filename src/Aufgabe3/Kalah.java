@@ -14,8 +14,8 @@ public class Kalah {
 	 * @param args wird nicht verwendet.
 	 */
 	public static void main(String[] args) {
-		//testExample();
-		testHHGame();
+		testExample();
+		//testHHGame();
 	}
 	
 	/**
@@ -24,14 +24,17 @@ public class Kalah {
 	public static void testExample() { 
 		KalahBoard kalahBd = new KalahBoard(new int[]{5,3,2,1,2,0,0,4,3,0,1,2,2,0}, 'B');
 		kalahBd.print();
+		System.out.println(kalahBd.evaluation());
 		
 		System.out.println("B spielt Mulde 11");
 		kalahBd.move(11);
 		kalahBd.print();
-		
+		System.out.println(kalahBd.evaluation());
+
 		System.out.println("B darf nochmals ziehen und spielt Mulde 7");
 		kalahBd.move(7);
 		kalahBd.print();
+		System.out.println(kalahBd.evaluation());
 	}
 	
 	/**
