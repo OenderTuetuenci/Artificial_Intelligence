@@ -70,10 +70,15 @@ public class Kalah {
 		kalahBd.print();
 
 		while (!kalahBd.isFinished()) {
-			if(kalahBd.getCurPlayer() == 'A')
-				kalahBd = MinMax.minMax(kalahBd, 4,'A');
-			else
-				kalahBd = MinMax.minMax(kalahBd,5,'B');
+			if(kalahBd.getCurPlayer() == 'A') {
+				MinMax.minMaxAlphaBetaWOSorted(kalahBd, 4, 'A');
+				MinMax.minMax(kalahBd, 4, 'A');
+				kalahBd = MinMax.minMaxAlphaBeta(kalahBd, 4, 'A');
+			}else {
+				MinMax.minMaxAlphaBeta(kalahBd, 4, 'B');
+				MinMax.minMax(kalahBd, 4, 'B');
+				kalahBd = MinMax.minMaxAlphaBetaWOSorted(kalahBd, 8, 'B');
+			}
 			kalahBd.print();
 		}
 		System.out.println("\n" + ANSI_BLUE + "GAME OVER");
