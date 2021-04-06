@@ -402,8 +402,50 @@ public class KalahBoard {
                 return false;
         }
     }
+    public int evaluationB() {
+        int points = 0;
+        //Mehr Punkte wenn man mehr Steine in Kahla hat
+        if (board[13] > board[6])
+            points += 200;
+        // Punkte für mulden die einen Bonuszug verursachen
+        int pointsIdx = 300;
+        for (int i = 12; i >= 0; i--) {
+            if (i == 6) pointsIdx = 300;
+            if (rechable(i, board[i])) {
+                if (i > 6) {
+                    points += pointsIdx;
+                    pointsIdx -= 10;
+                } else {
+                    points -= pointsIdx;
+                    pointsIdx -= 10;
+                }
+            }
+        }
+        //Punkte für Mulden die Steine an den Gegner geben
+        int tmp = 1;
+        for (int i = 12; i >= 7; i--) {
+            if (board[i] > tmp)
+                points -= 150;
+            tmp++;
+        }
+        //Punkte kurz bevor man gewinnt oder gewinnt
+        for (int i = 0; i < 6; i++) {
+            if (board[i] == 0) continue;
+            else if (board[5] == 1) points -= 10000000;
+            else if (board[5] == 0 && board[6] > board[13]) points = Integer.MIN_VALUE;
+            else break;
+        }
+        //Punkte wenn gegner fast am Gewinnen ist
+        for (int i = 7; i < 13; i++) {
+            if (board[i] == 0) continue;
+            else if (board[12] == 1) points += 10000000;
+            else if (board[12] == 0 && board[6] < board[13]) points = Integer.MAX_VALUE;
+            else break;
+        }
+        return points;
+    }
 
-    public int evaluation() {
+    public int evaluationA() {
         int points = 0;
         //Mehr Punkte wenn man mehr Steine in Kahla hat
         if (board[6] > board[13])
